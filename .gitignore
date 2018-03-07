@@ -4,3 +4,8 @@
 
 # Module directory
 .terraform/
+
+archive
+*.bak
+*.pem
+.python-version
