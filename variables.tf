@@ -15,7 +15,7 @@ variable "cluster_name" {
 
 variable "server_instance_type" {
    description = "What kind of instance type to use for the nomad servers"
-   default     = "t2.micro"
+   default     = "t2.nano"
 }
 
 variable "client_instance_type" {
