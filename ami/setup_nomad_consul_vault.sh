@@ -2,7 +2,7 @@
 set -e
 
 # Environment variables are set by packer
-/tmp/koralamode/modules/install-nomad/install-nomad --version "${NOMAD_VERSION}"
+/tmp/aws-koralamode/modules/install-nomad/install-nomad --version "${NOMAD_VERSION}"
 
 git clone --branch "${VAULT_MODULE_VERSION}" https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault
 /tmp/terraform-aws-vault/modules/install-vault/install-vault --version "${VAULT_VERSION}"
