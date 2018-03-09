@@ -84,7 +84,8 @@
         "NOMAD_VERSION={{user `nomad_version`}}",
         "CONSUL_VERSION={{user `consul_version`}}",
         "CONSUL_MODULE_VERSION={{user `consul_module_version`}}",
-        "VAULT_VERSION={{user `vault_version`}}"
+        "VAULT_VERSION={{user `vault_version`}}",
+        "VAULT_MODULE_VERSION={{user `vault_module_version`}}"
       ],
       "script": "{{template_dir}}/setup_nomad_consul_vault.sh"
     }
