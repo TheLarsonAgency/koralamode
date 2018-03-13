@@ -22,7 +22,7 @@ module "nomad_cluster_servers" {
   subnet_ids = "${module.vpc.private_subnets}"
 
   allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
-  allowed_inbound_cidr_blocks = ["${data.aws_subnet_ids.default.ids}"]
+  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }
 
