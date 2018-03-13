@@ -11,7 +11,8 @@ variable "aws_region" {
 
 variable "domain_name" {
   description = "Domain under which all services should reside."
-  default     = "service.consul"
+  #default     = "service.consul"
+  default     = "coolly.ninja"
 }
 
 variable "cluster_name" {
@@ -19,12 +20,17 @@ variable "cluster_name" {
   default     = "koralamode"
 }
 
-variable "nomad_instance_type" {
-   description = "What kind of instance type to use for the nomad servers"
+variable "bastion_instance_type" {
+   description = "What kind of instance type to use for the bastion servers"
    default     = "t2.nano"
 }
 
 variable "vault_instance_type" {
+   description = "What kind of instance type to use for the vault servers"
+   default     = "t2.nano"
+}
+
+variable "nomad_instance_type" {
    description = "What kind of instance type to use for the nomad servers"
    default     = "t2.nano"
 }

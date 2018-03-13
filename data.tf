@@ -29,3 +29,8 @@ data "template_file" "user_data_vault" {
 data "aws_subnet_ids" "default" {
   vpc_id = "${module.vpc.vpc_id}"
 }
+
+data "aws_route53_zone" "domain" {
+  name = "${var.domain_name}."
+  private_zone = false
+}
