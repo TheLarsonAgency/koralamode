@@ -18,12 +18,11 @@ module "nomad_cluster_servers" {
   user_data = "${data.template_file.user_data_server.rendered}"
 
   vpc_id     = "${module.vpc.vpc_id}"
-  subnet_ids = "${data.aws_subnet_ids.default.ids}"
+  #subnet_ids = "${data.aws_subnet_ids.default.ids}"
+  subnet_ids = "${module.vpc.private_subnets}"
 
-  # To make testing easier, we allow requests from any IP address here but in  a production deployment, we strongly
-  # recommend you limit this to the IP address ranges of known, trusted servers inside your VPC.
-  allowed_ssh_cidr_blocks     = ["0.0.0.0/0"]
-  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
+  allowed_inbound_cidr_blocks = ["${data.aws_subnet_ids.default.ids}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }
 
@@ -47,11 +46,10 @@ module "nomad_cluster_clients" {
   user_data = "${data.template_file.user_data_client.rendered}"
 
   vpc_id     = "${module.vpc.vpc_id}"
-  subnet_ids = "${data.aws_subnet_ids.default.ids}"
+  #subnet_ids = "${data.aws_subnet_ids.default.ids}"
+  subnet_ids = "${module.vpc.public_subnets}"
 
-  # To make testing easier, we allow requests from any IP address here but in  a production deployment, we strongly
-  # recommend you limit this to the IP address ranges of known, trusted servers inside your VPC.
-  allowed_ssh_cidr_blocks     = ["0.0.0.0/0"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
   ssh_key_name                = "${var.ssh_key_name}"
 }

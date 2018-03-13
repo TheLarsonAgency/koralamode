@@ -29,7 +29,7 @@ module "vault_cluster" {
 
   allowed_inbound_security_group_ids = []
   allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
-  allowed_ssh_cidr_blocks     = ["0.0.0.0/0"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }
 

@@ -63,3 +63,8 @@ variable "ssh_key_name" {
   description = "The name of an EC2 Key Pair that can be used to SSH to the EC2 Instances in this cluster. Set to an empty string to not associate a Key Pair."
   default     = "coollyninja"
 }
+
+variable "vpc_cidr" {
+  description = "The overarching cidr for the entire VPC"
+  default     = "10.10.0.0/16"
+}
