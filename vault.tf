@@ -33,10 +33,3 @@ module "vault_cluster" {
   allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }
-
-module "vault_security_group_rules" {
-  source = "git::git@github.com:hashicorp/terraform-aws-vault.git//modules/vault-security-group-rules?ref=v0.3.0"
-  security_group_id = "${module.vault_cluster.security_group_id}"
-  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
-  allowed_inbound_security_group_ids = []
-}
