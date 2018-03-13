@@ -9,22 +9,37 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "domain_name" {
+  description = "Domain under which all services should reside."
+  default     = "service.consul"
+}
+
 variable "cluster_name" {
   description = "What to name the cluster and all of its associated resources"
   default     = "koralamode"
 }
 
-variable "server_instance_type" {
+variable "nomad_instance_type" {
+   description = "What kind of instance type to use for the nomad servers"
+   default     = "t2.nano"
+}
+
+variable "vault_instance_type" {
    description = "What kind of instance type to use for the nomad servers"
    default     = "t2.nano"
 }
 
 variable "client_instance_type" {
    description = "What kind of instance type to use for the nomad clients"
-   default     = "t2.micro"
+   default     = "t2.small"
 }
 
-variable "num_servers" {
+variable "num_vault_servers" {
+  description = "The number of server nodes to deploy. We strongly recommend using 3 or 5."
+  default     = 2
+}
+
+variable "num_nomad_servers" {
   description = "The number of server nodes to deploy. We strongly recommend using 3 or 5."
   default     = 3
 }
