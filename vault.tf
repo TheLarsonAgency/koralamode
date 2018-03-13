@@ -27,7 +27,7 @@ module "vault_cluster" {
   vpc_id     = "${module.vpc.vpc_id}"
   subnet_ids = "${data.aws_subnet_ids.default.ids}"
 
-  allowed_inbound_security_group_ids = ["${module.nomad_cluster_servers.security_group_id}"]
+  allowed_inbound_security_group_ids = []
   allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
   allowed_ssh_cidr_blocks     = ["0.0.0.0/0"]
   ssh_key_name                = "${var.ssh_key_name}"
@@ -37,5 +37,5 @@ module "vault_security_group_rules" {
   source = "git::git@github.com:hashicorp/terraform-aws-vault.git//modules/vault-security-group-rules?ref=v0.3.0"
   security_group_id = "${module.vault_cluster.security_group_id}"
   allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
-  allowed_inbound_security_group_ids = ["${module.nomad_cluster_servers.security_group_id}"]
+  allowed_inbound_security_group_ids = []
 }
