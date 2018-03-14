@@ -33,7 +33,7 @@ module "nomad_cluster_clients" {
   ami_id = "${var.ami_id == "" ? data.aws_ami.nomad_consul.image_id : var.ami_id}"
 
   cluster_name = "nomad-${var.cluster_name}-clients"
-  instance_type = "${var.nomad_instance_type}"
+  instance_type = "${var.client_instance_type}"
 
   min_size         = "${var.num_clients_min}"
   max_size         = "${var.num_clients_max}"
