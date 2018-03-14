@@ -60,9 +60,19 @@ variable "num_clients_max" {
   default     = 6
 }
 
-variable "cluster_tag_key" {
+variable "vault_cluster_tag_key" {
+  description = "The tag the EC2 Instances will look for to automatically discover each other and form a cluster."
+  default     = "vault-servers"
+}
+
+variable "nomad_cluster_tag_key" {
   description = "The tag the EC2 Instances will look for to automatically discover each other and form a cluster."
   default     = "nomad-servers"
+}
+
+variable "client_cluster_tag_key" {
+  description = "The tag the EC2 Instances will look for to automatically discover each other and form a cluster."
+  default     = "nomad-clients"
 }
 
 variable "ssh_key_name" {

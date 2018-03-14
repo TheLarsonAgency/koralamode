@@ -21,7 +21,7 @@ module "vault_cluster" {
   instance_type = "${var.vault_instance_type}"
   cluster_size  = "${var.num_vault_servers}"
 
-  cluster_tag_key   = "${var.cluster_tag_key}"
+  cluster_tag_key   = "${var.vault_cluster_tag_key}"
 
   user_data = "${data.template_file.user_data_vault.rendered}"
 

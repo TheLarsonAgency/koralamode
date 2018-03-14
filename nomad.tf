@@ -12,7 +12,7 @@ module "nomad_cluster_servers" {
   desired_capacity = "${var.num_nomad_servers}"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
-  cluster_tag_key   = "${var.cluster_tag_key}"
+  cluster_tag_key   = "${var.nomad_cluster_tag_key}"
   cluster_tag_value = "${var.cluster_name}"
 
   user_data = "${data.template_file.user_data_server.rendered}"
@@ -40,7 +40,7 @@ module "nomad_cluster_clients" {
   desired_capacity = "${var.num_clients_min}"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
-  cluster_tag_key   = "${var.cluster_tag_key}"
+  cluster_tag_key   = "${var.client_cluster_tag_key}"
   cluster_tag_value = "${var.cluster_name}"
 
   user_data = "${data.template_file.user_data_client.rendered}"
