@@ -4,7 +4,7 @@ module "bastion" {
   instance_type = "${var.bastion_instance_type}"
   ami = "${var.ami_id == "" ? data.aws_ami.nomad_consul.image_id : var.ami_id}"
   key_name = "${var.ssh_key_name}"
-  name = "bastion"  # VPC requires DNS hostnames
+  name = "${var.bastion_hostname}"  # VPC requires DNS hostnames
 
   vpc_id = "${module.vpc.vpc_id}"
   subnets = "${module.vpc.public_subnets}"

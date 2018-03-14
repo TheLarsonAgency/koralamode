@@ -15,6 +15,11 @@ variable "domain_name" {
   default     = "coolly.ninja"
 }
 
+variable "bastion_hostname" {
+  description = "The hostname to assign to the bastion host (eg. bastion.${var.domain_name})"
+  default     = "console"
+}
+
 variable "cluster_name" {
   description = "What to name the cluster and all of its associated resources"
   default     = "koralamode"
