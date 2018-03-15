@@ -6,6 +6,8 @@ module "bastion" {
   key_name = "${var.ssh_key_name}"
   name = "${var.bastion_hostname}"  # VPC requires DNS hostnames
 
+  stage = "${var.cluster_name}"
+
   vpc_id = "${module.vpc.vpc_id}"
   subnets = "${module.vpc.public_subnets}"
 
