@@ -30,7 +30,34 @@ data "aws_subnet_ids" "default" {
   vpc_id = "${module.vpc.vpc_id}"
 }
 
+data "aws_instance" "bastion" {
+  filter {
+    name   = "tag:Name"
+    values = ["global-${var.cluster_name}-${var.bastion_hostname}"]
+  }
+}
+
+data "aws_subnet" "bastion" {
+  id = "${data.aws_instance.bastion.subnet_id}"
+}
+
 data "aws_route53_zone" "domain" {
   name = "${var.domain_name}."
   private_zone = false
 }
+
+data "aws_security_group" "bastion" {
+  name = "global-${var.cluster_name}-${var.bastion_hostname}"
+}
+
+#data "aws_security_group" "nomad_clients" {
+#  name = "nomad-${var.cluster_name}-clients"
+#}
+#
+#data "aws_security_group" "nomad_servers" {
+#  name = "nomad-${var.cluster_name}-servers"
+#}
+#
+#data "aws_security_group" "vault" {
+#  name = "vault-${var.cluster_name}"
+#}
