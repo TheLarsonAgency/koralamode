@@ -5,7 +5,7 @@ module "vault_elb" {
   name = "vault"
   vpc_id = "${module.vpc.vpc_id}"
   subnet_ids = "${module.vpc.public_subnets}"
-  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
+  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
 }
 
 module "vault_cluster" {
@@ -26,11 +26,11 @@ module "vault_cluster" {
   user_data = "${data.template_file.user_data_vault.rendered}"
 
   vpc_id     = "${module.vpc.vpc_id}"
-  subnet_ids = "${module.vpc.public_subnets}"
+  subnet_ids = "${module.vpc.private_subnets}"
 
-  allowed_inbound_security_group_ids = []
-  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
-  allowed_ssh_cidr_blocks     = ["${data.aws_subnet.bastion.cidr_block}"]
-  allowed_ssh_security_group_ids = []
+  allowed_inbound_security_group_ids = ["${module.bastion.security_group_id}"]
+  allowed_inbound_cidr_blocks = []
+  allowed_ssh_cidr_blocks     = []
+  allowed_ssh_security_group_ids = ["${module.bastion.security_group_id}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }

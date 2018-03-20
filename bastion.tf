@@ -6,11 +6,12 @@ module "bastion" {
   key_name = "${var.ssh_key_name}"
   name = "${var.bastion_hostname}"  # VPC requires DNS hostnames
 
+  # To conform to naming of clusters, we use stage instead of namespace
   stage = "${var.cluster_name}"
 
   vpc_id = "${module.vpc.vpc_id}"
   subnets = "${module.vpc.public_subnets}"
 
   zone_id = "${data.aws_route53_zone.domain.zone_id}"
-  security_groups = []
+  security_groups = ["${module.vpc.default_security_group_id}"]
 }

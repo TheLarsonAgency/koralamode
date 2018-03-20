@@ -32,6 +32,11 @@ data "aws_subnet_ids" "default" {
 
 data "aws_instance" "bastion" {
   filter {
+    name   = "image-id"
+    values = ["${var.ami_id}"]
+  }
+
+  filter {
     name   = "tag:Name"
     values = ["global-${var.cluster_name}-${var.bastion_hostname}"]
   }
@@ -45,19 +50,3 @@ data "aws_route53_zone" "domain" {
   name = "${var.domain_name}."
   private_zone = false
 }
-
-data "aws_security_group" "bastion" {
-  name = "global-${var.cluster_name}-${var.bastion_hostname}"
-}
-
-#data "aws_security_group" "nomad_clients" {
-#  name = "nomad-${var.cluster_name}-clients"
-#}
-#
-#data "aws_security_group" "nomad_servers" {
-#  name = "nomad-${var.cluster_name}-servers"
-#}
-#
-#data "aws_security_group" "vault" {
-#  name = "vault-${var.cluster_name}"
-#}
