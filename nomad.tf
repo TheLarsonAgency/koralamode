@@ -18,11 +18,9 @@ module "nomad_cluster_servers" {
   user_data = "${data.template_file.user_data_server.rendered}"
 
   vpc_id     = "${module.vpc.vpc_id}"
-  #subnet_ids = "${data.aws_subnet_ids.default.ids}"
   subnet_ids = "${module.vpc.private_subnets}"
 
-  #allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
-  allowed_ssh_cidr_blocks     = ["${data.aws_subnet.bastion.cidr_block}"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }
@@ -47,10 +45,9 @@ module "nomad_cluster_clients" {
   user_data = "${data.template_file.user_data_client.rendered}"
 
   vpc_id     = "${module.vpc.vpc_id}"
-  #subnet_ids = "${data.aws_subnet_ids.default.ids}"
   subnet_ids = "${module.vpc.public_subnets}"
 
-  allowed_ssh_cidr_blocks     = ["${data.aws_subnet.bastion.cidr_block}"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
   ssh_key_name                = "${var.ssh_key_name}"
 }

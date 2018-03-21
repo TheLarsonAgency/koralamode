@@ -28,9 +28,8 @@ module "vault_cluster" {
   vpc_id     = "${module.vpc.vpc_id}"
   subnet_ids = "${module.vpc.private_subnets}"
 
-  allowed_inbound_security_group_ids = ["${module.bastion.security_group_id}"]
-  allowed_inbound_cidr_blocks = []
-  allowed_ssh_cidr_blocks     = []
-  allowed_ssh_security_group_ids = ["${module.bastion.security_group_id}"]
+  allowed_inbound_security_group_ids = []
+  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
+  allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
 }

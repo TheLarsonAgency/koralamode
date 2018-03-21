@@ -30,22 +30,6 @@ data "aws_subnet_ids" "default" {
   vpc_id = "${module.vpc.vpc_id}"
 }
 
-data "aws_instance" "bastion" {
-  filter {
-    name   = "image-id"
-    values = ["${var.ami_id}"]
-  }
-
-  filter {
-    name   = "tag:Name"
-    values = ["global-${var.cluster_name}-${var.bastion_hostname}"]
-  }
-}
-
-data "aws_subnet" "bastion" {
-  id = "${data.aws_instance.bastion.subnet_id}"
-}
-
 data "aws_route53_zone" "domain" {
   name = "${var.domain_name}."
   private_zone = false
