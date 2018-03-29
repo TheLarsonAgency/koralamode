@@ -74,12 +74,6 @@
       ]
     },
     {
-      "type": "file",
-      "source": "{{template_dir}}/../../koralamode",
-      "destination": "/tmp",
-      "pause_before": "30s"
-    },
-    {
       "type": "shell",
       "environment_vars": [
         "NOMAD_MODULE_VERSION={{user `nomad_module_version`}}",
