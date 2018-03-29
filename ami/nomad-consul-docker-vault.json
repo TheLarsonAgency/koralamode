@@ -74,7 +74,7 @@
     },
     {
       "type": "file",
-      "source": "{{template_dir}}/../../aws-koralamode",
+      "source": "{{template_dir}}/../../koralamode",
       "destination": "/tmp",
       "pause_before": "30s"
     },
