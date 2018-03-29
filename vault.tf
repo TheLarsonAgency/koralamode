@@ -21,7 +21,7 @@ module "vault_cluster" {
   instance_type = "${var.vault_instance_type}"
   cluster_size  = "${var.num_vault_servers}"
 
-  cluster_tag_key   = "${var.vault_cluster_tag_key}"
+  cluster_tag_key   = "Name"
 
   user_data = "${data.template_file.user_data_vault.rendered}"
 
@@ -32,4 +32,12 @@ module "vault_cluster" {
   allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
   allowed_ssh_cidr_blocks     = ["${var.vpc_cidr}"]
   ssh_key_name                = "${var.ssh_key_name}"
+
+  cluster_extra_tags = [
+    {
+      key = "${var.vault_cluster_tag_key}"
+      value = "${var.cluster_name}"
+      propagate_at_launch = true
+    }
+  ]
 }
