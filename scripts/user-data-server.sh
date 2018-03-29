@@ -9,10 +9,6 @@ set -e
 # From: https://alestic.com/2010/12/ec2-user-data-output/
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
-readonly VAULT_TLS_CERT_FILE="/opt/vault/tls/vault.crt.pem"
-readonly VAULT_TLS_KEY_FILE="/opt/vault/tls/vault.key.pem"
-
 # These variables are passed in via Terraform template interplation
 /opt/consul/bin/run-consul --server --cluster-tag-key "${cluster_tag_key}" --cluster-tag-value "${cluster_tag_value}"
 /opt/nomad/bin/run-nomad --server --num-servers "${num_servers}"
-/opt/vault/bin/run-vault --tls-cert-file "$VAULT_TLS_CERT_FILE"  --tls-key-file "$VAULT_TLS_KEY_FILE"
