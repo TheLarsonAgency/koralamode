@@ -52,11 +52,6 @@ module "nomad_cluster_clients" {
   ssh_key_name                = "${var.ssh_key_name}"
 }
 
-module "consul_iam_policies" {
-  source = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-iam-policies?ref=v0.2.0"
-  iam_role_id = "${module.nomad_cluster_clients.iam_role_id}"
-}
-
 module "nomad_security_group_rules" {
   source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.2.0"
   security_group_id = "${module.nomad_cluster_servers.security_group_id}"
