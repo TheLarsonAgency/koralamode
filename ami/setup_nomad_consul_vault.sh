@@ -18,6 +18,7 @@ git clone --branch "${CONSUL_MODULE_VERSION}"  https://github.com/hashicorp/terr
 # Download, decrypt, and install certs
 wget -O - https://s3.amazonaws.com/koralamode-vault/certs.tar.gz.enc | base64 -d > certs.tar.gz.enc
 aws kms decrypt --region us-east-1 --ciphertext-blob fileb://certs.tar.gz.enc --output text --query Plaintext | base64 -d | gzip -d | sudo tar x -C /opt/vault/tls/
+sudo chown -R vault:vault /opt/vault/tls
 
 # Add the Vault CA
 sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem
