@@ -47,7 +47,7 @@ variable "client_instance_type" {
 
 variable "num_vault_servers" {
   description = "The number of server nodes to deploy. We strongly recommend using 3 or 5."
-  default     = 2
+  default     = 3
 }
 
 variable "num_nomad_servers" {
