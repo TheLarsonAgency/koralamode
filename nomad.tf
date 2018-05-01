@@ -1,5 +1,5 @@
 module "nomad_cluster_servers" {
-  source = "github.com/hashicorp/terraform-aws-nomad//modules/nomad-cluster?ref=v0.2.0"
+  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.4.0"
 
   # Specify the ID of the Nomad AMI. You should build this using the scripts in the install-nomad module.
   ami_id = "${var.ami_id == "" ? data.aws_ami.nomad_consul.image_id : var.ami_id}"
@@ -26,7 +26,7 @@ module "nomad_cluster_servers" {
 }
 
 module "nomad_cluster_clients" {
-  source = "github.com/hashicorp/terraform-aws-nomad//modules/nomad-cluster?ref=v0.2.0"
+  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.4.0"
 
   # Specify the ID of the Nomad AMI. You should build this using the scripts in the install-nomad module.
   ami_id = "${var.ami_id == "" ? data.aws_ami.nomad_consul.image_id : var.ami_id}"
@@ -52,8 +52,14 @@ module "nomad_cluster_clients" {
   ssh_key_name                = "${var.ssh_key_name}"
 }
 
-module "nomad_security_group_rules" {
-  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.2.0"
+module "nomad_server_security_group_rules" {
+  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.4.0"
   security_group_id = "${module.nomad_cluster_servers.security_group_id}"
-  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
+  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
 }
+
+#module "nomad_client_security_group_rules" {
+#  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.4.0"
+#  security_group_id = "${module.nomad_cluster_clients.security_group_id}"
+#  allowed_inbound_cidr_blocks = ["0.0.0.0/0"]
+#}
