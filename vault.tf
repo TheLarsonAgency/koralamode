@@ -35,7 +35,7 @@ module "vault_cluster" {
 
   cluster_extra_tags = [
     {
-      key = "${var.vault_cluster_tag_key}"
+      key = "${var.cluster_tag_key}"
       value = "${var.cluster_name}"
       propagate_at_launch = true
     }

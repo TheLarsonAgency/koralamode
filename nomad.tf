@@ -12,7 +12,7 @@ module "nomad_cluster_servers" {
   desired_capacity = "${var.num_nomad_servers}"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
-  cluster_tag_key   = "${var.nomad_cluster_tag_key}"
+  cluster_tag_key   = "${var.cluster_tag_key}"
   cluster_tag_value = "${var.cluster_name}"
 
   user_data = "${data.template_file.user_data_server.rendered}"
@@ -39,7 +39,7 @@ module "nomad_cluster_clients" {
   desired_capacity = "${var.num_clients_min}"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
-  cluster_tag_key   = "${var.client_cluster_tag_key}"
+  cluster_tag_key   = "${var.cluster_tag_key}"
   cluster_tag_value = "${var.cluster_name}"
 
   user_data = "${data.template_file.user_data_client.rendered}"
@@ -52,12 +52,12 @@ module "nomad_cluster_clients" {
   ssh_key_name                = "${var.ssh_key_name}"
 }
 
-module "nomad_server_security_group_rules" {
-  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.4.0"
-  security_group_id = "${module.nomad_cluster_servers.security_group_id}"
-  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
-}
-
+#module "nomad_server_security_group_rules" {
+#  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.4.0"
+#  security_group_id = "${module.nomad_cluster_servers.security_group_id}"
+#  allowed_inbound_cidr_blocks = ["${var.vpc_cidr}"]
+#}
+#
 #module "nomad_client_security_group_rules" {
 #  source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-security-group-rules?ref=v0.4.0"
 #  security_group_id = "${module.nomad_cluster_clients.security_group_id}"

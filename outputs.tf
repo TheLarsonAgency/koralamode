@@ -70,24 +70,16 @@ output "asg_name_vault_cluster" {
   value = "${module.vault_cluster.asg_name}"
 }
 
-output "nomad_servers_cluster_tag_key" {
-  value = "${module.nomad_cluster_servers.cluster_tag_key}"
+output "cluster_tag_key" {
+  value = "${var.cluster_tag_key}"
 }
 
 output "nomad_servers_cluster_tag_value" {
   value = "${module.nomad_cluster_servers.cluster_tag_value}"
 }
 
-output "nomad_clients_cluster_tag_key" {
-  value = "${module.nomad_cluster_clients.cluster_tag_key}"
-}
-
 output "nomad_clients_cluster_tag_value" {
   value = "${module.nomad_cluster_clients.cluster_tag_value}"
-}
-
-output "vault_servers_cluster_tag_key" {
-  value = "${module.vault_cluster.cluster_tag_key}"
 }
 
 output "vault_servers_cluster_tag_value" {
