@@ -57,7 +57,7 @@ variable "num_nomad_servers" {
 
 variable "num_clients_min" {
   description = "The minimum number of client nodes to deploy."
-  default     = 3
+  default     = 1
 }
 
 variable "num_clients_max" {
