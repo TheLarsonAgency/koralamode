@@ -7,6 +7,14 @@ set -e
 git clone --branch "${NOMAD_MODULE_VERSION}" https://github.com/hashicorp/terraform-aws-nomad.git /tmp/terraform-aws-nomad
 /tmp/terraform-aws-nomad/modules/install-nomad/install-nomad --version "${NOMAD_VERSION}"
 
+sudo tee /opt/nomad/config/vault.hcl << EOF
+vault {
+  enabled = true
+  address = "https://vault.coolly.ninja:8200"
+}
+EOF
+sudo chown nomad:nomad /opt/nomad/config/vault.hcl
+
 # Install Vault
 git clone --branch "${VAULT_MODULE_VERSION}" https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault
 /tmp/terraform-aws-vault/modules/install-vault/install-vault --version "${VAULT_VERSION}"
