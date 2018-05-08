@@ -86,10 +86,11 @@ output "vault_servers_cluster_tag_value" {
   value = "${module.vault_cluster.cluster_tag_value}"
 }
 
-output "vault_fully_qualified_domain_name" {
-  value = "${module.vault_elb.fully_qualified_domain_name}"
-}
-
-output "vault_elb_dns_name" {
-  value = "${module.vault_elb.load_balancer_dns_name}"
-}
+# Uncomment if you use an ELB
+#output "vault_fully_qualified_domain_name" {
+#  value = "${module.vault_elb.fully_qualified_domain_name}"
+#}
+#
+#output "vault_elb_dns_name" {
+#  value = "${module.vault_elb.load_balancer_dns_name}"
+#}
