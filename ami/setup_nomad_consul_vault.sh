@@ -9,10 +9,11 @@ git clone --branch "${NOMAD_MODULE_VERSION}" https://github.com/hashicorp/terraf
 
 sudo tee /opt/nomad/config/vault.hcl << EOF
 vault {
-  enabled   = true
-  cert_file = "/opt/nomad/tls/vault.crt.pem"
-  key_file  = "/opt/nomad/tls/vault.key.pem"
+  enabled          = true
+  cert_file        = "/opt/nomad/tls/vault.crt.pem"
+  key_file         = "/opt/nomad/tls/vault.key.pem"
   create_from_role = "nomad-cluster"
+  address          = "https://vault.${DOMAIN_NAME}:8200"
 }
 EOF
 
