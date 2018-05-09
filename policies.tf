@@ -74,8 +74,8 @@ data "aws_iam_policy_document" "s3_certs_source" {
   statement = {
     actions = ["s3:GetObject"],
     resources = [
-      "arn:aws:s3:*:*:${var.cluster_name}-certs/*/certs.tar.gz.enc",
-      "arn:aws:s3:*:*:${var.cluster_name}-certs/*/ca.crt.pem"
+      "arn:aws:s3:::${var.cluster_name}-certs/*/certs.tar.gz.enc",
+      "arn:aws:s3:::${var.cluster_name}-certs/*/ca.crt.pem"
     ]
   }
 }
