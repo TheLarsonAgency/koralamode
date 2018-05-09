@@ -12,10 +12,29 @@ vault {
   enabled          = true
   cert_file        = "/opt/nomad/tls/vault.crt.pem"
   key_file         = "/opt/nomad/tls/vault.key.pem"
+  address          = "https://vault.service.consul:8200"
   create_from_role = "nomad-cluster"
-  address          = "https://vault.${DOMAIN_NAME}:8200"
 }
 EOF
+
+sudo mkdir /etc/dnsmasq.d
+sudo tee /etc/dnsmasq.d/10-consul << EOF
+# Enable forward lookup of the 'consul' domain:
+server=/consul/127.0.0.1#8600
+
+# Uncomment and modify as appropriate to enable reverse DNS lookups for
+# common netblocks found in RFC 1918, 5735, and 6598:
+#rev-server=0.0.0.0/8,127.0.0.1#8600
+rev-server=10.0.0.0/8,127.0.0.1#8600
+#rev-server=100.64.0.0/10,127.0.0.1#8600
+#rev-server=127.0.0.1/8,127.0.0.1#8600
+#rev-server=169.254.0.0/16,127.0.0.1#8600
+#rev-server=172.16.0.0/12,127.0.0.1#8600
+#rev-server=192.168.0.0/16,127.0.0.1#8600
+#rev-server=224.0.0.0/4,127.0.0.1#8600
+#rev-server=240.0.0.0/4,127.0.0.1#8600
+EOF
+sudo service dnsmasq enable
 
 # Install Vault
 git clone --branch "${VAULT_MODULE_VERSION}" https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault
