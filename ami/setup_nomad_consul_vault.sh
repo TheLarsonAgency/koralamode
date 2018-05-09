@@ -43,12 +43,12 @@ git clone --branch "${CONSUL_MODULE_VERSION}"  https://github.com/hashicorp/terr
 /tmp/terraform-aws-consul/modules/install-consul/install-consul --version "${CONSUL_VERSION}"
 
 # Download, decrypt, and install certs
-wget -O - https://s3.amazonaws.com/koralamode-vault/certs.tar.gz.enc | base64 -d > certs.tar.gz.enc
+wget -O - https://s3.amazonaws.com/koralamode-certs/vault/certs.tar.gz.enc | base64 -d > certs.tar.gz.enc
 aws kms decrypt --region us-east-1 --ciphertext-blob fileb://certs.tar.gz.enc --output text --query Plaintext | base64 -d | gzip -d | sudo tar x -C /opt/vault/tls/
 sudo chown -R vault:vault /opt/vault/tls
 sudo cp -a /opt/vault/tls /opt/nomad/
 sudo chown -R nomad:nomad /opt/nomad
 
 # Add the Vault CA
-sudo aws s3 cp s3://koralamode-vault/ca.crt.pem /var/certs/
+sudo aws s3 cp s3://koralamode-certs/vault/ca.crt.pem /var/certs/
 sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /var/certs/ca.crt.pem
