@@ -10,7 +10,7 @@ set -v -e
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 # Configure vault integration
-sudo tee /opt/nomad/config/vault.hcl << EOF
+tee /opt/nomad/config/vault.hcl << EOF
 vault {
   enabled          = true
   cert_file        = "/opt/nomad/tls/vault.crt.pem"
@@ -18,6 +18,7 @@ vault {
   create_from_role = "nomad-cluster"
 }
 EOF
+chmod 600 /opt/nomad/config/vault.hcl
 
 # Decrypt certs
 mkdir /opt/nomad/tls

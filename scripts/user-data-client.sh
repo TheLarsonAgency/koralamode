@@ -10,11 +10,12 @@ set -v -e
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 # Configure vault integration
-sudo tee /opt/nomad/config/vault.hcl << EOF
+tee /opt/nomad/config/vault.hcl << EOF
 vault {
   enabled = true
 }
 EOF
+chmod 600 /opt/nomad/config/vault.hcl
 
 # These variables are passed in via Terraform template interplation
 /opt/consul/bin/run-consul --client --cluster-tag-key "${cluster_tag_key}" --cluster-tag-value "${cluster_tag_value}"
