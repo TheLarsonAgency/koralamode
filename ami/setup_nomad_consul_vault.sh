@@ -33,7 +33,6 @@ rev-server=10.0.0.0/8,127.0.0.1#8600
 #rev-server=224.0.0.0/4,127.0.0.1#8600
 #rev-server=240.0.0.0/4,127.0.0.1#8600
 EOF
-sudo service dnsmasq enable
 
 # Install Vault
 git clone --branch "${VAULT_MODULE_VERSION}" https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault
