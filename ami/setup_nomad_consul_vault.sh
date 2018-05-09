@@ -32,4 +32,5 @@ sudo cp -a /opt/vault/tls /opt/nomad/
 sudo chown -R nomad:nomad /opt/nomad
 
 # Add the Vault CA
-sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem
+sudo aws s3 cp s3://koralamode-vault/ca.crt.pem /var/certs/
+sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /var/certs/ca.crt.pem
