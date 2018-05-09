@@ -17,7 +17,6 @@ vault {
 }
 EOF
 
-sudo mkdir /etc/dnsmasq.d
 sudo tee /etc/dnsmasq.d/10-consul << EOF
 # Enable forward lookup of the 'consul' domain:
 server=/consul/127.0.0.1#8600
