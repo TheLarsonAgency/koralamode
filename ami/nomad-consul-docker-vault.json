@@ -2,6 +2,7 @@
   "min_packer_version": "0.12.0",
   "variables": {
     "aws_region": "us-east-1",
+    "domain_name": "coolly.ninja",
     "nomad_module_version": "v0.4.0",
     "nomad_version": "0.8.3",
     "consul_module_version": "v0.3.3",
@@ -78,6 +79,7 @@
     {
       "type": "shell",
       "environment_vars": [
+        "DOMAIN_NAME={{user `domain_name`}}",
         "NOMAD_MODULE_VERSION={{user `nomad_module_version`}}",
         "NOMAD_VERSION={{user `nomad_version`}}",
         "CONSUL_VERSION={{user `consul_version`}}",
