@@ -42,9 +42,15 @@ resource "aws_iam_role_policy" "vault_kms_certs_policy" {
   policy = "${data.aws_iam_policy_document.kms_certs_source.json}"
 }
 
-resource "aws_iam_role_policy" "nomad_vault_kms_certs_policy" {
-  name = "nomad_vault_kms_certs"
+resource "aws_iam_role_policy" "nomad_server_vault_kms_certs_policy" {
+  name = "nomad_server_vault_kms_certs"
   role = "${module.nomad_cluster_servers.iam_role_id}"
+  policy = "${data.aws_iam_policy_document.kms_certs_source.json}"
+}
+
+resource "aws_iam_role_policy" "nomad_client_vault_kms_certs_policy" {
+  name = "nomad_client_vault_kms_certs"
+  role = "${module.nomad_cluster_clients.iam_role_id}"
   policy = "${data.aws_iam_policy_document.kms_certs_source.json}"
 }
 
@@ -64,9 +70,15 @@ resource "aws_iam_role_policy" "vault_s3_certs_policy" {
   policy = "${data.aws_iam_policy_document.s3_certs_source.json}"
 }
 
-resource "aws_iam_role_policy" "nomad_vault_s3_certs_policy" {
-  name = "nomad_vault_s3_certs"
+resource "aws_iam_role_policy" "nomad_server_vault_s3_certs_policy" {
+  name = "nomad_server_vault_s3_certs"
   role = "${module.nomad_cluster_servers.iam_role_id}"
+  policy = "${data.aws_iam_policy_document.s3_certs_source.json}"
+}
+
+resource "aws_iam_role_policy" "nomad_client_vault_s3_certs_policy" {
+  name = "nomad_client_vault_s3_certs"
+  role = "${module.nomad_cluster_clients.iam_role_id}"
   policy = "${data.aws_iam_policy_document.s3_certs_source.json}"
 }
 

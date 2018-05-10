@@ -15,10 +15,12 @@ vault {
   enabled          = true
   cert_file        = "/opt/nomad/tls/vault.crt.pem"
   key_file         = "/opt/nomad/tls/vault.key.pem"
+  address          = "https://active.vault.service.consul:8200"
   create_from_role = "nomad-cluster"
 }
 EOF
 chmod 600 /opt/nomad/config/vault.hcl
+chown nomad:nomad /opt/nomad/config/vault.hcl
 
 # Decrypt certs
 mkdir /opt/nomad/tls
