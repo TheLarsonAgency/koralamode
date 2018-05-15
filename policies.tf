@@ -57,7 +57,6 @@ resource "aws_iam_role_policy" "nomad_client_vault_kms_certs_policy" {
 data "aws_iam_policy_document" "kms_certs_source" {
   statement = {
     actions = ["kms:Decrypt"],
-    #resources = ["arn:aws:kms:*:*:key/${aws_kms_key.hashicorp_certs_kms.id}"]
     resources = ["arn:aws:kms:*:*:key/${var.kms_certs_key_id}"]
   }
 }
@@ -87,10 +86,7 @@ data "aws_iam_policy_document" "s3_certs_source" {
   statement = {
     actions = ["s3:GetObject"],
     resources = [
-      #"arn:aws:s3:::${var.cluster_name}-certs/*/ca.crt.pem"
-      #"arn:aws:s3:::${var.cluster_name}-certs/*/*.crt.pem"
-      #"arn:aws:s3:::${var.cluster_name}-certs/*/*.key.pem"
-      "arn:aws:s3:::${var.cluster_name}-certs/*/certs.tar.xz.enc",
+      "arn:aws:s3:::${var.cluster_name}-certs/*/certs.txz.enc",
       "arn:aws:s3:::${var.cluster_name}-certs/*/ca.crt.pem"
     ]
   }
