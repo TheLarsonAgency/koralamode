@@ -24,12 +24,12 @@ chown nomad:nomad /opt/nomad/config/vault.hcl
 
 # Decrypt certs
 mkdir /opt/nomad/tls
-aws s3 cp s3://koralamode-certs/vault/certs.tar.xz.enc /opt/nomad/tls/certs.tar.xz.enc
+aws s3 cp s3://koralamode-certs/vault/certs.txz.enc /opt/nomad/tls/certs.txz.enc
 
 {
   cd /opt/nomad/tls
   aws kms decrypt --region us-east-1 --ciphertext-blob \
-		  fileb://certs.tar.xz.enc --output text --query Plaintext \
+		  fileb://certs.txz.enc --output text --query Plaintext \
 		  | base64 -d | xz -d | tar x
 }
 

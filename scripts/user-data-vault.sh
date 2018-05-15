@@ -12,12 +12,12 @@ exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 readonly VAULT_TLS_CERT_FILE="/opt/vault/tls/vault.crt.pem"
 readonly VAULT_TLS_KEY_FILE="/opt/vault/tls/vault.key.pem"
 
-aws s3 cp s3://koralamode-certs/vault/certs.tar.xz.enc /opt/vault/tls/certs.tar.xz.enc
+aws s3 cp s3://koralamode-certs/vault/certs.txz.enc /opt/vault/tls/certs.txz.enc
 
 {  # Decrypt certs
   cd /opt/vault/tls
   aws kms decrypt --region us-east-1 --ciphertext-blob \
-		  fileb://certs.tar.xz.enc --output text --query Plaintext \
+		  fileb://certs.txz.enc --output text --query Plaintext \
 		  | base64 -d | xz -d | tar x
 }
 
