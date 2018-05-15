@@ -24,3 +24,6 @@ git clone --branch "${VAULT_MODULE_VERSION}" https://github.com/hashicorp/terraf
 # Install Consul
 git clone --branch "${CONSUL_MODULE_VERSION}"  https://github.com/hashicorp/terraform-aws-consul.git /tmp/terraform-aws-consul
 /tmp/terraform-aws-consul/modules/install-consul/install-consul --version "${CONSUL_VERSION}"
+
+# Install dnsmasq
+/tmp/terraform-aws-consul/modules/install-dnsmasq/install-dnsmasq
