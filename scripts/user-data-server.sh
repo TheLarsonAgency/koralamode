@@ -24,14 +24,13 @@ chown nomad:nomad /opt/nomad/config/vault.hcl
 
 # Decrypt certs
 mkdir /opt/nomad/tls
-aws s3 cp s3://koralamode-certs/vault/certs.tar.gz.enc /opt/nomad/tls/certs.tar.gz.enc.b64
-base64 -d /opt/nomad/tls/certs.tar.gz.enc.b64 > /opt/nomad/tls/certs.tar.gz.enc
+aws s3 cp s3://koralamode-certs/vault/certs.tar.xz.enc /opt/nomad/tls/certs.tar.xz.enc
 
 {
   cd /opt/nomad/tls
   aws kms decrypt --region us-east-1 --ciphertext-blob \
-		  fileb://certs.tar.gz.enc --output text --query Plaintext \
-		  | base64 -d | gzip -d | tar x
+		  fileb://certs.tar.xz.enc --output text --query Plaintext \
+		  | base64 -d | xz -d | tar x
 }
 
 # Fix perms
