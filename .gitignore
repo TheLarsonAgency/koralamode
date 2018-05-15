@@ -11,3 +11,4 @@ archive
 .python-version
 vault.txt
 certs.tar
+private-tls-cert

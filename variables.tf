@@ -1,7 +1,7 @@
 variable "ami_id" {
   description = "The ID of the AMI to run in the cluster. This should be an AMI built from the Packer template under ami/nomad-consul.json. If no AMI is specified, the template will 'just work' by using the example public AMIs. WARNING! Do not use the example AMIs in a production setting!"
-  default = "ami-0d5747dcb51641ebc" # ubuntu16-ami
-  #default = "ami-016ffbb00d9e182ab" # amazon-linux-ami
+  default = "ami-0162452f49cb1ab5e" # ubuntu16-ami
+  #default = "ami-0c8f38b3877aad922" # amazon-linux-ami
 }
 
 variable "aws_region" {
@@ -88,6 +88,11 @@ variable "client_cluster_tag_key" {
 variable "ssh_key_name" {
   description = "The name of an EC2 Key Pair that can be used to SSH to the EC2 Instances in this cluster. Set to an empty string to not associate a Key Pair."
   default     = "coollyninja"
+}
+
+variable "kms_certs_key_id" {
+  description = "The id of a KMS Key that can be used to decrypt the certs from S3"
+  default     = "9e4f0608-8ed4-421d-98b5-adaedf6dce19"
 }
 
 variable "vpc_cidr" {
