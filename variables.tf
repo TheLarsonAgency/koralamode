@@ -1,7 +1,7 @@
 variable "ami_id" {
   description = "The ID of the AMI to run in the cluster. This should be an AMI built from the Packer template under ami/nomad-consul.json. If no AMI is specified, the template will 'just work' by using the example public AMIs. WARNING! Do not use the example AMIs in a production setting!"
-  default = "ami-0599c3eca10321afc" # ubuntu16-ami
-  #default = "ami-0e35842b37e425a07" # amazon-linux-ami
+  default = "ami-0162452f49cb1ab5e" # ubuntu16-ami
+  #default = "ami-0c8f38b3877aad922" # amazon-linux-ami
 }
 
 variable "aws_region" {
