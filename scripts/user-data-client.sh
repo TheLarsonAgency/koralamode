@@ -37,6 +37,29 @@ aws s3 cp s3://koralamode-certs/vault/certs.txz.enc /opt/nomad/tls/certs.txz.enc
 chown -R nomad:nomad /opt/nomad/tls
 chmod -R 600 /opt/nomad/tls/*
 
+# Install docker-credential-ecr-login
+git clone https://github.com/awslabs/amazon-ecr-credential-helper.git /tmp/amazon-ecr-credential-helper
+{
+  cd /tmp/amazon-ecr-credential-helper
+  make docker
+  cp -a bin/local/docker-credential-ecr-login /usr/bin/
+  mkdir /root/.docker
+  echo '{ "credsStore": "ecr-login" }' > /root/.docker/config.json
+}
+
+# Setup client options for docker
+tee /opt/nomad/config/nomad_client.hcl << EOF
+client {
+  enabled = true
+  options = {
+    "docker.auth.config" = "/root/.docker/config.json"
+	"docker.auth.helper" = "ecr-login"
+  }
+}
+EOF
+chmod 644 /opt/nomad/config/nomad_client.hcl
+chown nomad:nomad /opt/nomad/config/nomad_client.hcl
+
 # Install CA
 git clone https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault
 /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/nomad/tls/ca.crt.pem
@@ -44,4 +67,3 @@ git clone https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aw
 # These variables are passed in via Terraform template interplation
 /opt/consul/bin/run-consul --client --cluster-tag-key "${cluster_tag_key}" --cluster-tag-value "${cluster_tag_value}"
 /opt/nomad/bin/run-nomad --client
-
