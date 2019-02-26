@@ -8,10 +8,10 @@ terraform {
   required_version = ">= 0.9.3, != 0.9.5"
   backend "s3" {
     encrypt = true
-    bucket = "koralamode-remote-state-storage-s3"
-    dynamodb_table = "koralamode-state-lock-dynamo"
+    bucket = "koralamode-terraform-remote-state-storage-s3"
+    dynamodb_table = "koralamode-terraform-state-lock-dynamo"
     region = "us-east-1"
     key = "koralamode.tfstate"
-    kms_key_id = "f54f49ea-556f-427d-b24b-90682cc2c04e"
+    kms_key_id = "3bac6890-68fc-45a9-9e6a-a81aa85e30ec"
   }
 }
